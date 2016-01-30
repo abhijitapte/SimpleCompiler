@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		015420ED1C5C8A9F0099B65E /* MicroParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 015420EB1C5C8A9F0099B65E /* MicroParser.cpp */; };
 		01D104571C57C41A0095AC54 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01D104561C57C41A0095AC54 /* main.cpp */; };
 		01D1045F1C57C44D0095AC54 /* MicroScanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01D1045D1C57C44D0095AC54 /* MicroScanner.cpp */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		015420EB1C5C8A9F0099B65E /* MicroParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MicroParser.cpp; sourceTree = "<group>"; };
+		015420EC1C5C8A9F0099B65E /* MicroParser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MicroParser.hpp; sourceTree = "<group>"; };
 		01D104531C57C41A0095AC54 /* SimpleCompiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleCompiler; sourceTree = BUILT_PRODUCTS_DIR; };
 		01D104561C57C41A0095AC54 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		01D1045D1C57C44D0095AC54 /* MicroScanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MicroScanner.cpp; sourceTree = "<group>"; };
@@ -62,6 +65,8 @@
 			children = (
 				01D104561C57C41A0095AC54 /* main.cpp */,
 				01D1045D1C57C44D0095AC54 /* MicroScanner.cpp */,
+				015420EB1C5C8A9F0099B65E /* MicroParser.cpp */,
+				015420EC1C5C8A9F0099B65E /* MicroParser.hpp */,
 				01D1045E1C57C44D0095AC54 /* MicroScanner.hpp */,
 			);
 			path = SimpleCompiler;
@@ -123,6 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				015420ED1C5C8A9F0099B65E /* MicroParser.cpp in Sources */,
 				01D104571C57C41A0095AC54 /* main.cpp in Sources */,
 				01D1045F1C57C44D0095AC54 /* MicroScanner.cpp in Sources */,
 			);
@@ -243,6 +249,7 @@
 				01D1045C1C57C41A0095AC54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

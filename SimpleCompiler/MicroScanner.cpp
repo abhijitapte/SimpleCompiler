@@ -1,14 +1,12 @@
 
 #include <iostream>
-#include <fstream>
 #include <map>
 
 #include "MicroScanner.hpp"
 
 MicroScanner::MicroScanner(const std::string& inputFile)
-: m_inputFile(inputFile)
+: m_inputFileStream(inputFile, std::ifstream::binary)
 {
-    
 }
 
 MicroScanner::~MicroScanner()
@@ -17,8 +15,8 @@ MicroScanner::~MicroScanner()
 }
 
 /*static*/ void MicroScanner::CheckReserved(
-                                const std::string&          inToken,
-                                MicroScanner::TokenBuffer&  outTokenBuffer)
+                                const std::string&   inTokenBuffer,
+                                MicroScanner::Token& outToken)
 {
     typedef std::map<std::string, TokenClass> ReservedTokens;
     static ReservedTokens reservedTokens = {
@@ -28,27 +26,22 @@ MicroScanner::~MicroScanner()
         std::make_pair("write", WRITE)
     };
     
-    auto reservedIter = reservedTokens.find(inToken);
+    auto reservedIter = reservedTokens.find(inTokenBuffer);
     
     MicroScanner::TokenClass tokenClass = (reservedIter != reservedTokens.end())?
     reservedIter->second : ID;
-    outTokenBuffer = std::make_pair(tokenClass, inToken);
+    outToken = std::make_pair(tokenClass, inTokenBuffer);
 }
 
-MicroScanner::TokenBuffer MicroScanner::Scan()
+MicroScanner::Token MicroScanner::GetToken()
 {
-    TokenBuffer tokenBuffer;
-    std::string token;
+    Token token;
+    std::string tokenBuffer;
     
     std::ifstream::char_type inChar;
     std::ifstream::char_type c;
-
-    std::ifstream is (m_inputFile, std::ifstream::binary);
     
-    if (is.eof())
-    {
-        return std::make_pair(SCANEOF, "");
-    }
+    std::ifstream& is = m_inputFileStream;
     
     while (is.get(inChar))
     {
@@ -66,32 +59,44 @@ MicroScanner::TokenBuffer MicroScanner::Scan()
                     break;
                 }
                 else
+                {
                     tokenClass = MINUSOP;
+                    tokenBuffer += inChar;
+                }
+                return std::make_pair(tokenClass, tokenBuffer);
             case '(':
                 tokenClass = LPAREN;
+                tokenBuffer += inChar;
+                return std::make_pair(tokenClass, tokenBuffer);
             case ')':
                 tokenClass = RPAREN;
+                tokenBuffer += inChar;
+                return std::make_pair(tokenClass, tokenBuffer);
             case ';':
                 tokenClass = SEMICOLON;
+                tokenBuffer += inChar;
+                return std::make_pair(tokenClass, tokenBuffer);
             case ',':
                 tokenClass = COMMA;
+                tokenBuffer += inChar;
+                return std::make_pair(tokenClass, tokenBuffer);
             case '+':
                 tokenClass = PLUSOP;
-                token += inChar;
-                return std::make_pair(tokenClass, token);
+                tokenBuffer += inChar;
+                return std::make_pair(tokenClass, tokenBuffer);
             case ':':
-                token += inChar;
+                tokenBuffer += inChar;
                 /* looking for ":=" */
                 is.get(c);
                 if (c == '=')
                 {
-                    token += inChar;
-                    return std::make_pair(ASSIGNOP, token);
+                    tokenBuffer += c;
+                    return std::make_pair(ASSIGNOP, tokenBuffer);
                 }
                 else
                 {
                     is.unget();
-                    /* lexical_error(); */
+                    /* lexical_error */
                 }
                 break;
             
@@ -105,12 +110,12 @@ MicroScanner::TokenBuffer MicroScanner::Scan()
                      *               | ID DIGIT
                      *               | ID UNDERSCORE
                      */
-                    token += inChar;
+                    tokenBuffer += inChar;
                     for (is.get(c); std::isalnum(c) || c == '_'; is.get(c))
-                        token += c;
+                        tokenBuffer += c;
                     is.unget();
-                    CheckReserved(token, tokenBuffer);
-                    return tokenBuffer;
+                    CheckReserved(tokenBuffer, token);
+                    return token;
                 }
                 else if (std::isdigit(inChar))
                 {
@@ -118,12 +123,12 @@ MicroScanner::TokenBuffer MicroScanner::Scan()
                      * INTLITERAL ::= DIGIT |
                      *                INTLITERAL DIGIT
                      */
-                    token += inChar;
+                    tokenBuffer += inChar;
                     for (is.get(c); std::isdigit(c); is.get(c))
-                        token += c;
+                        tokenBuffer += c;
                     is.unget();
-                    tokenBuffer = std::make_pair(INTLITERAL, token);
-                    return tokenBuffer;
+                    token = std::make_pair(INTLITERAL, tokenBuffer);
+                    return token;
                 }
                 else
                 {

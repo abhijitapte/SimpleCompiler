@@ -2,9 +2,12 @@
 #ifndef MICROSCANNER_HPP
 #define MICROSCANNER_HPP
 
+#include <fstream>
+
 class MicroScanner {
     
 public:
+    
     typedef enum {
         BEGIN,
         END,
@@ -22,20 +25,23 @@ public:
         SCANEOF
     } TokenClass;
     
-    typedef std::pair<TokenClass, std::string> TokenBuffer;
+    typedef std::pair<TokenClass, std::string> Token;
     
     MicroScanner(const std::string& inputFile);
     ~MicroScanner();
     
-    TokenBuffer Scan();
+    Token GetToken();
     
 private:
     
-    static void CheckReserved(
-                    const std::string&          inToken,
-                    MicroScanner::TokenBuffer&  outTokenBuffer);
+    Token Scan();
     
-    std::string m_inputFile;
+    
+    static void CheckReserved(
+                    const std::string&    inTokenBuffer,
+                    MicroScanner::Token&  outToken);
+    
+    std::ifstream m_inputFileStream;
     
 };
 
