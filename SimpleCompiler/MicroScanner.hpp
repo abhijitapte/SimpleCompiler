@@ -1,14 +1,42 @@
-//
-//  MicroScanner.hpp
-//  SimpleCompiler
-//
-//  Created by Abhijit Apte on 26/01/16.
-//  Copyright © 2016 Abhijit Apte. All rights reserved.
-//
 
-#ifndef MicroScanner_hpp
-#define MicroScanner_hpp
+#ifndef MICROSCANNER_HPP
+#define MICROSCANNER_HPP
 
-#include <stdio.h>
+class MicroScanner {
+    
+public:
+    typedef enum {
+        BEGIN,
+        END,
+        READ,
+        WRITE,
+        ID,
+        INTLITERAL,
+        LPAREN,
+        RPAREN,
+        SEMICOLON,
+        COMMA,
+        ASSIGNOP,
+        PLUSOP,
+        MINUSOP,
+        SCANEOF
+    } TokenClass;
+    
+    typedef std::pair<TokenClass, std::string> TokenBuffer;
+    
+    MicroScanner(const std::string& inputFile);
+    ~MicroScanner();
+    
+    TokenBuffer Scan();
+    
+private:
+    
+    static void CheckReserved(
+                    const std::string&          inToken,
+                    MicroScanner::TokenBuffer&  outTokenBuffer);
+    
+    std::string m_inputFile;
+    
+};
 
-#endif /* MicroScanner_hpp */
+#endif /* MICROSCANNER_HPP */
