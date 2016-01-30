@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		01D104571C57C41A0095AC54 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01D104561C57C41A0095AC54 /* main.cpp */; };
+		01D1045F1C57C44D0095AC54 /* MicroScanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01D1045D1C57C44D0095AC54 /* MicroScanner.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		01D104531C57C41A0095AC54 /* SimpleCompiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleCompiler; sourceTree = BUILT_PRODUCTS_DIR; };
 		01D104561C57C41A0095AC54 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		01D1045D1C57C44D0095AC54 /* MicroScanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MicroScanner.cpp; sourceTree = "<group>"; };
+		01D1045E1C57C44D0095AC54 /* MicroScanner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MicroScanner.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				01D104561C57C41A0095AC54 /* main.cpp */,
+				01D1045D1C57C44D0095AC54 /* MicroScanner.cpp */,
+				01D1045E1C57C44D0095AC54 /* MicroScanner.hpp */,
 			);
 			path = SimpleCompiler;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01D104571C57C41A0095AC54 /* main.cpp in Sources */,
+				01D1045F1C57C44D0095AC54 /* MicroScanner.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
