@@ -28,12 +28,7 @@ MicroScanner::~MicroScanner()
         std::make_pair("write", WRITE)
     };
     
-    auto reservedIter = std::find(
-                                  reservedTokens.begin(),
-                                  reservedTokens.end(),
-                                  [&](ReservedTokens::value_type& reserved) {
-                                      return inToken == reserved.first;
-                                  });
+    auto reservedIter = reservedTokens.find(inToken);
     
     MicroScanner::TokenClass tokenClass = (reservedIter != reservedTokens.end())?
     reservedIter->second : ID;
